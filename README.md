@@ -6,6 +6,8 @@
 
 2. run new container
 
+docker run -d -p 80808:80 --name welcome1 docker/welcome-to-docker
+
 ![1runnewdocker](https://github.com/abirafdinst/learning-docker/assets/171578597/760c507b-4cd9-4711-8600-04a7b2d08c2f)
 
 3. welcome to docker
