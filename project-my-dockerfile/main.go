@@ -1,21 +1,31 @@
 package main
 
 import (
+	// "database/sql"
 	"fmt"
-	"log"
+	"net/http"
+	"os"
 
-	"github.com/gofiber/fiber/v3"
+	"github.com/labstack/echo"
+	"github.com/labstack/echo/middleware"
+	_ "github.com/lib/pq"
 )
 
 func main() {
+	e := echo.New()
 
-	app := fiber.New()
+	e.Use(middleware.Logger())
+	e.Use(middleware.Recover())
 
-	app.Get("/", func(c fiber.Ctx) error {
-		fmt.Println("Ouch ")
-		return c.SendString("test")
+	e.GET("/", func(c echo.Context) error {
+		fmt.Println("Ouch :(")
+		return c.HTML(http.StatusOK, "Success \n")
 	})
 
-	log.Fatal(app.Listen(":77"))
+	httpPort := os.Getenv("PORT")
+	if httpPort == "" {
+		httpPort = "77"
+	}
 
+	e.Logger.Fatal(e.Start(":" + httpPort))
 }
